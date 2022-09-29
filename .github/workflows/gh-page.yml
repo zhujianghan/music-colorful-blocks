@@ -1,21 +1,21 @@
 name: build-vue-actions
 run-name: Building vue project actions
-on: [push]
+on: [ push ]
 jobs:
   run-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
+      - name: Setup Node & Build
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-
-      - name: build
       - run: npm install
       - run: npm run build -v
 
-      - name: deploy
-        uses:  peaceiris/actions-gh-pages@v3
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.ref == 'refs/heads/main' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
