@@ -18,9 +18,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16'
-
-      - run: npm install
-      - run: npm run build -v
+        run: |
+          npm install
+          npm run build -v 
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
