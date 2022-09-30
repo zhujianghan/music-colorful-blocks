@@ -39,9 +39,10 @@ const board = reactive(
       [null, null, null, null, null, null, null, null, null,],
       [null, null, null, null, null, null, null, null, null,],
     ],
+    active: false,
+    timeout: 500,
   }
 )
-
 
 const coord = computed(() => {
   for (let i = 0; i < 15; i++) {
@@ -55,8 +56,10 @@ const coord = computed(() => {
   return [0, 0]
 })
 
-function startInterval() {
-  const inter = setInterval(() => {
+async function toggleActive() {
+  board.active = !board.active
+
+  for (; board.active;) {
     let x = coord.value[0]
     let y = coord.value[1]
 
@@ -66,14 +69,18 @@ function startInterval() {
       board.bgArr[x + 1][y] = board.foreArr[x + 1][y]
       board.bgArr[x + 2][y] = board.foreArr[x + 2][y]
 
+      // 清除前景
+      board.foreArr[x][y] = null
+      board.foreArr[x + 1][y] = null
+      board.foreArr[x + 2][y] = null
+
       //2. 执行消除
-      clearBoard()
+      await clearBoard()
 
       // 3. 判断即将新增加的是否超出
       if (!!board.bgArr[2][4]) {
-        clearInterval(inter)
-
         alert("游戏结束")
+        location.reload()
         return
       }
 
@@ -89,7 +96,9 @@ function startInterval() {
       board.foreArr[x + 2][y] = b
       board.foreArr[x + 3][y] = c
     }
-  }, 500)
+
+    await sleep(board.timeout)
+  }
 }
 
 function generateForeArr() {
@@ -116,7 +125,7 @@ function generateForeArr() {
   ]
 }
 
-function clearBoard() {
+async function clearBoard() {
   let targetSet = new Set()
 
   for (let i = 0; i < 15; i++) {
@@ -178,9 +187,11 @@ function clearBoard() {
   if (targetSet.size > 0) {
     // 1. 执行清除
     for (let item of targetSet) {
+      console.log(item, "item")
       const arr = item.split('_')
       board.bgArr[parseInt(arr[0])][parseInt(arr[1])] = null
     }
+    await sleep(200)
 
     // 2. 补全空格
     let tempArr = [...board.bgArr]
@@ -201,9 +212,10 @@ function clearBoard() {
     }
 
     board.bgArr = [...tempArr]
+    await sleep(200)
 
     // 3. 循环 clearBoard
-    clearBoard()
+    await clearBoard()
   }
 }
 
@@ -268,12 +280,18 @@ function moveUp() {
   board.foreArr = [...tmpArr]
 }
 
-
-startInterval()
-
+function sleep(time) {
+  return new Promise(resolve => setTimeout(resolve, time))
+}
 
 document.addEventListener('keydown', function (e) {
-  console.log(e.code)
+  if (e.code === 'Space') {
+    toggleActive()
+  }
+
+  if (!board.active) {
+    return
+  }
 
   switch (e.code) {
     case 'ArrowLeft':// left  37
@@ -339,9 +357,17 @@ document.addEventListener('keydown', function (e) {
 
       </div>
 
-
-      <div class="flex-auto border-l border-black">
-        abcd
+      <div class="flex-auto border-l border-black p-2">
+        <div class="text-center mt-96">
+          <div
+            class="rounded p-2 text-white w-full cursor-pointer"
+            :class="{'bg-green-600': !board.active, 'bg-gray-600': board.active}"
+            @click="toggleActive"
+          >
+            {{ board.active ? 'STOP' : 'START' }}
+          </div>
+          <p class="text-xs">Press 「SPACE」 to toggle START/STOP</p>
+        </div>
       </div>
     </div>
   </div>
