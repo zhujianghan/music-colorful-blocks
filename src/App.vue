@@ -408,19 +408,25 @@ document.addEventListener('keydown', function (e) {
               <option value="false">false</option>
             </select>
           </div>
-
-
         </div>
 
-        <div class="text-center mt-96">
-          <div
-            class="rounded py-3 text-white w-full cursor-pointer"
-            :class="{'bg-success': !board.active, 'bg-neutral': board.active}"
-            @click="toggleActive"
-          >
-            {{ board.active ? 'STOP' : 'START' }}
+        <div class="mt-36 space-y-10">
+          <div>
+            <div>⬆️to change color</div>
+            <div>⬅️➡️⬇️to move</div>
+            <div>⬅️➡️⬇️to move</div>
           </div>
-          <p class="text-xs">Press 「SPACE」 to toggle START/STOP</p>
+
+          <div class="text-center">
+            <div
+              class="rounded py-3 text-white w-full cursor-pointer"
+              :class="{'bg-success': !board.active, 'bg-neutral': board.active}"
+              @click="toggleActive"
+            >
+              {{ board.active ? 'STOP' : 'START' }}
+            </div>
+            <p class="text-xs">Press 「SPACE」 to toggle START/STOP</p>
+          </div>
         </div>
       </div>
     </div>
