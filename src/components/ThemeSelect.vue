@@ -9,7 +9,7 @@ const props = defineProps({
   },
 })
 
-const themes = ['light', 'dark', 'cupcake', 'retro', 'aqua', 'fantasy', 'dracula', 'cmyk', 'acid', 'winter']
+const themes = ['default', 'light', 'dark', 'cupcake', 'retro', 'aqua', 'fantasy', 'dracula', 'cmyk', 'acid', 'winter']
 
 themeChange(true)
 </script>
