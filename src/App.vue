@@ -7,9 +7,9 @@ import ThemeSelect from './components/ThemeSelect.vue'
 const board = reactive(
   {
     foreArr: [
-      [null, null, null, null, 'neutral', null, null, null, null,],
       [null, null, null, null, 'primary', null, null, null, null,],
       [null, null, null, null, 'secondary', null, null, null, null,],
+      [null, null, null, null, 'accent', null, null, null, null,],
       [null, null, null, null, null, null, null, null, null,],
       [null, null, null, null, null, null, null, null, null,],
       [null, null, null, null, null, null, null, null, null,],
@@ -105,7 +105,7 @@ async function toggleActive() {
 }
 
 function generateForeArr() {
-  const allColors = ['neutral', 'primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error']
+  const allColors = ['primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error', 'neutral']
   const c1 = allColors[Math.floor(Math.random() * board.numOfColors)]
   const c2 = allColors[Math.floor(Math.random() * board.numOfColors)]
   const c3 = allColors[Math.floor(Math.random() * board.numOfColors)]

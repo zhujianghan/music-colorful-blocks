@@ -15,7 +15,6 @@ const props = defineProps({
 })
 
 const colorsMap = {
-  'neutral': 'bg-neutral',
   'primary': 'bg-primary',
   'secondary': 'bg-secondary',
   'accent': 'bg-accent',
@@ -23,6 +22,7 @@ const colorsMap = {
   'success': 'bg-success',
   'warning': 'bg-warning',
   'error': 'bg-error',
+  'neutral': 'bg-neutral',
 }
 
 
