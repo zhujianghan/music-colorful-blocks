@@ -6,7 +6,7 @@ const props = defineProps({
   },
   borderColor: {
     type: String,
-    default: 'border-slate-100',
+    default: 'border-slate-300',
   },
 })
 
@@ -23,7 +23,7 @@ const colorsMap = {
 
 <template>
   <div
-    class="w-12 h-12 border"
+    class="w-12 h-12 border-t border-r"
     :class="(color ? colorsMap[color] : '') + ' ' + borderColor"
   />
 </template>
