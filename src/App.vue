@@ -2,6 +2,7 @@
 import { computed, reactive, ref } from "vue"
 
 import Block from './components/Block.vue'
+import ThemeSelect from './components/ThemeSelect.vue'
 
 const board = reactive(
   {
@@ -358,10 +359,15 @@ document.addEventListener('keydown', function (e) {
       </div>
 
       <div class="flex-auto border-l border-black p-4">
-        <div>
+        <div class="space-y-4">
           <div class="flex justify-between items-center">
-            <div class="w-1/2">Hard Mode</div>
-            <select class="flex-grow w-full max-w-xs rounded p-2" v-model="board.timeout">
+            <div class="w-1/2 font-bold">Theme</div>
+            <ThemeSelect :board-active="board.active"/>
+          </div>
+
+          <div class="flex justify-between items-center">
+            <div class="w-1/2 font-bold">Hard Mode</div>
+            <select class="flex-grow w-full max-w-xs rounded p-2 bg-base-200" v-model="board.timeout" :disabled="board.active">
               <option value="50">L10</option>
               <option value="100">L9</option>
               <option value="150">L8</option>
