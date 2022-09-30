@@ -41,7 +41,7 @@ const board = reactive(
       [null, null, null, null, null, null, null, null, null,],
     ],
     active: false,
-    timeout: 500,
+    timeout: 400,
     numOfColors: 5,
     showText: 'false',
   }
