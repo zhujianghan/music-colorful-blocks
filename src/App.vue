@@ -316,7 +316,7 @@ document.addEventListener('keydown', function (e) {
 </script>
 
 <template>
-  <div class="container mx-auto pt-40">
+  <div class="max-w-screen-md mx-auto pt-40">
     <div class="border border-black flex justify-between items-stretch">
       <div class="relative">
         <div class="absolute top-0 left-0">
