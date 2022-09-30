@@ -320,7 +320,7 @@ document.addEventListener('keydown', function (e) {
 
 <template>
   <div class="max-w-screen-md mx-auto pt-40">
-    <div class="border border-black flex justify-between items-stretch">
+    <div class="border border-slate-500 flex justify-between items-stretch">
       <div class="relative">
         <div class="absolute top-0 left-0">
           <div
@@ -362,7 +362,7 @@ document.addEventListener('keydown', function (e) {
 
       </div>
 
-      <div class="flex-auto border-l border-black p-4">
+      <div class="flex-auto border-l border-slate-500 p-4">
         <div class="space-y-4">
           <div class="flex justify-between items-center">
             <div class="w-1/2 font-bold">Theme</div>
