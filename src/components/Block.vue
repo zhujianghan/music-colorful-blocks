@@ -8,14 +8,21 @@ const props = defineProps({
     type: String,
     default: 'border-slate-300',
   },
+  showText: {
+    type: Boolean,
+    default: false,
+  }
 })
 
 const colorsMap = {
-  'red': 'bg-red-400',
-  'green': 'bg-green-400',
-  'blue': 'bg-blue-400',
-  'yellow': 'bg-yellow-400',
-  'fuchsia': 'bg-fuchsia-400',
+  'neutral': 'bg-neutral',
+  'primary': 'bg-primary',
+  'secondary': 'bg-secondary',
+  'accent': 'bg-accent',
+  'info': 'bg-info',
+  'success': 'bg-success',
+  'warning': 'bg-warning',
+  'error': 'bg-error',
 }
 
 
@@ -23,8 +30,12 @@ const colorsMap = {
 
 <template>
   <div
-    class="w-12 h-12 border-t border-r"
+    class="w-12 h-12 border-t border-r uppercase text-base-100 flex justify-center items-center"
     :class="(color ? colorsMap[color] : '') + ' ' + borderColor"
-  />
+  >
+    <span v-show="color && showText">
+      {{ color.substring(0, 2) }}
+    </span>
+  </div>
 </template>
 

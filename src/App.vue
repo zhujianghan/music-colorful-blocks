@@ -7,9 +7,9 @@ import ThemeSelect from './components/ThemeSelect.vue'
 const board = reactive(
   {
     foreArr: [
-      [null, null, null, null, 'red', null, null, null, null,],
-      [null, null, null, null, 'green', null, null, null, null,],
-      [null, null, null, null, 'blue', null, null, null, null,],
+      [null, null, null, null, 'neutral', null, null, null, null,],
+      [null, null, null, null, 'primary', null, null, null, null,],
+      [null, null, null, null, 'secondary', null, null, null, null,],
       [null, null, null, null, null, null, null, null, null,],
       [null, null, null, null, null, null, null, null, null,],
       [null, null, null, null, null, null, null, null, null,],
@@ -42,6 +42,8 @@ const board = reactive(
     ],
     active: false,
     timeout: 500,
+    numOfColors: 5,
+    showText: 'false',
   }
 )
 
@@ -103,10 +105,10 @@ async function toggleActive() {
 }
 
 function generateForeArr() {
-  const allColors = ['red', 'green', 'blue', 'yellow', 'fuchsia']
-  const c1 = allColors[Math.floor(Math.random() * 5)]
-  const c2 = allColors[Math.floor(Math.random() * 5)]
-  const c3 = allColors[Math.floor(Math.random() * 5)]
+  const allColors = ['neutral', 'primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error']
+  const c1 = allColors[Math.floor(Math.random() * board.numOfColors)]
+  const c2 = allColors[Math.floor(Math.random() * board.numOfColors)]
+  const c3 = allColors[Math.floor(Math.random() * board.numOfColors)]
   return [
     [null, null, null, null, c1, null, null, null, null,],
     [null, null, null, null, c2, null, null, null, null,],
@@ -327,10 +329,11 @@ document.addEventListener('keydown', function (e) {
           >
             <div class="flex">
               <Block
+                border-color="border-slate-100"
+                :show-text="board.showText === 'true'"
                 v-for="j in 9"
                 :key="j"
                 :data-key="`${i-1}-${j-1}`"
-                border-color="border-slate-100"
                 :color="board.foreArr[i-1][j-1] ? board.foreArr[i-1][j-1] :''"
               />
             </div>
@@ -338,7 +341,7 @@ document.addEventListener('keydown', function (e) {
         </div>
 
 
-        <div class="bg-gradient-to-br from-violet-100 to-teal-50">
+        <div class="bg-base-300">
           <div
             v-for="i in 15"
             :key="i"
@@ -346,10 +349,11 @@ document.addEventListener('keydown', function (e) {
           >
             <div class="flex">
               <Block
+                border-color="border-slate-100"
+                :show-text="board.showText === 'true'"
                 v-for="j in 9"
                 :key="j"
                 :data-key="`${i-1}-${j-1}`"
-                border-color="border-slate-100"
                 :color="board.bgArr[i-1][j-1] ? board.bgArr[i-1][j-1] :''"
               />
             </div>
@@ -366,18 +370,42 @@ document.addEventListener('keydown', function (e) {
           </div>
 
           <div class="flex justify-between items-center">
-            <div class="w-1/2 font-bold">Hard Mode</div>
-            <select class="flex-grow w-full max-w-xs rounded p-2 bg-base-200" v-model="board.timeout" :disabled="board.active">
-              <option value="50">L10</option>
-              <option value="100">L9</option>
-              <option value="150">L8</option>
-              <option value="200">L7</option>
-              <option value="300">L6</option>
-              <option value="400">L5</option>
-              <option value="500">L4</option>
-              <option value="600">L3</option>
-              <option value="700">L2</option>
-              <option value="800">L1</option>
+            <div class="w-1/2 font-bold">Speed</div>
+            <select class="flex-grow w-full max-w-xs rounded p-2 bg-base-500" v-model="board.timeout"
+                    :disabled="board.active">
+              <option value="50">F5</option>
+              <option value="100">F4</option>
+              <option value="150">F3</option>
+              <option value="200">F2</option>
+              <option value="300">F1</option>
+              <option value="400">Normal</option>
+              <option value="500">L1</option>
+              <option value="600">L2</option>
+              <option value="700">L3</option>
+              <option value="800">L4</option>
+            </select>
+          </div>
+
+          <div class="flex justify-between items-center">
+            <div class="w-1/2 font-bold">Num of Colors</div>
+            <select
+              class="flex-grow w-full max-w-xs rounded p-2 bg-base-500"
+              v-model="board.numOfColors"
+              :disabled="board.active"
+            >
+              <option v-for="i in [3,4,5,6,7,8]" :value="i" :key="i">{{ i }}</option>
+            </select>
+          </div>
+
+          <div class="flex justify-between items-center">
+            <div class="w-1/2 font-bold">Show Text</div>
+            <select
+              class="flex-grow w-full max-w-xs rounded p-2 bg-base-500"
+              v-model="board.showText"
+              :disabled="board.active"
+            >
+              <option value="true">true</option>
+              <option value="false">false</option>
             </select>
           </div>
 
@@ -386,8 +414,8 @@ document.addEventListener('keydown', function (e) {
 
         <div class="text-center mt-96">
           <div
-            class="rounded p-2 text-white w-full cursor-pointer"
-            :class="{'bg-green-600': !board.active, 'bg-gray-600': board.active}"
+            class="rounded py-3 text-white w-full cursor-pointer"
+            :class="{'bg-success': !board.active, 'bg-neutral': board.active}"
             @click="toggleActive"
           >
             {{ board.active ? 'STOP' : 'START' }}

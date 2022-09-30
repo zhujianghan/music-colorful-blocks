@@ -15,7 +15,7 @@ themeChange(true)
 </script>
 
 <template>
-  <select class="flex-grow w-full max-w-xs rounded p-2 bg-base-200" data-choose-theme :disabled="boardActive">
+  <select class="flex-grow w-full max-w-xs rounded p-2 bg-base-500" data-choose-theme :disabled="boardActive">
     <option
       v-for="item in themes"
       :value="item"
