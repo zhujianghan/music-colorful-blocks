@@ -357,7 +357,27 @@ document.addEventListener('keydown', function (e) {
 
       </div>
 
-      <div class="flex-auto border-l border-black p-2">
+      <div class="flex-auto border-l border-black p-4">
+        <div>
+          <div class="flex justify-between items-center">
+            <div class="w-1/2">Hard Mode</div>
+            <select class="flex-grow w-full max-w-xs rounded p-2" v-model="board.timeout">
+              <option value="50">L10</option>
+              <option value="100">L9</option>
+              <option value="150">L8</option>
+              <option value="200">L7</option>
+              <option value="300">L6</option>
+              <option value="400">L5</option>
+              <option value="500">L4</option>
+              <option value="600">L3</option>
+              <option value="700">L2</option>
+              <option value="800">L1</option>
+            </select>
+          </div>
+
+
+        </div>
+
         <div class="text-center mt-96">
           <div
             class="rounded p-2 text-white w-full cursor-pointer"
